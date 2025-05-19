@@ -66,3 +66,38 @@ class GeneroLiterario(models.Model):
     class Meta:
         verbose_name = 'Genero Literário'
         verbose_name_plural = 'Generos Literários'
+
+
+class Livro(models.Model):
+    nome = models.CharField(
+        max_length=200,
+        verbose_name='Título',
+        help_text='Título'
+        )
+    isbn = models.CharField(
+        max_length=14,
+        unique=True,
+        verbose_name='ISBN',
+        help_text='ISBN'
+    )
+    nota = models.IntegerField(
+        verbose_name='Avaliação do livro',
+        help_text='Avaliação do livro',
+        blank=True,
+        null=True
+    )
+    genero_literario = models.ForeignKey(
+        GeneroLiterario,
+        on_delete=models.RESTRICT,
+        verbose_name='Genero Literário',
+        help_text='Genero Literário'
+    )
+    editora = models.ForeignKey(
+        Editora,
+        on_delete=models.RESTRICT,
+        verbose_name='Editora',
+        help_text='Editora'
+    )
+
+    def __str__(self):
+        return self.nome
